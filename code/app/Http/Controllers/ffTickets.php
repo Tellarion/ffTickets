@@ -13,4 +13,8 @@ class ffTickets extends BaseController {
         return view('pages.main', []);
     }
 
+    public function listTickets() {
+        return view('pages.list', []);
+    }
+
 }

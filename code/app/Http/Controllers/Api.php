@@ -7,6 +7,8 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
+use DB;
+
 class Api extends BaseController
 {
     public $db;
@@ -16,7 +18,7 @@ class Api extends BaseController
 
     public function __construct() {
         $this->middleware(function ($request, $next) {
-            $this->db = DB::connection('fftickets');
+            $this->db = DB::connection('mysql');
             return $next($request);
         });
     }
@@ -33,7 +35,12 @@ class Api extends BaseController
 
     public function sendTicket() {
         //$getTickets = $this->db->table('tickets')->orderBy('status', 'DESC')->get();
-        //return json_encode($getTickets);
+        $array = array(
+            "status" => true,
+            "data" => null
+        );
+
+        return json_encode($array);
     }
 
 }
