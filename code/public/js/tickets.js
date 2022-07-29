@@ -1,9 +1,7 @@
-const API_URL = "api/"
-
 $(document).ready(function() {
     $('#sendTicket').on('click', function() {
         $.ajax({
-            url: `${API_URL}requests`,
+            url: `api/requests`,
             method: 'POST',
             dataType: 'json',
             data: {name: $('#name').val(), email: $('#email').val(), message: $('#message').val()},

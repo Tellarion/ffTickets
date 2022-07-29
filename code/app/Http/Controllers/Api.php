@@ -13,7 +13,6 @@ use DB;
 
 class Api extends BaseController
 {
-    public $db;
     public $redis = 0;
 
     public $act, $webdata;
@@ -25,13 +24,12 @@ class Api extends BaseController
     }
 
     public function getTickets() {
-        $getTickets = $this->db->table('tickets')->orderBy('status', 'DESC')->get();
+        $getTickets = Tickets::orderBy('status', 'DESC')->get();
         return json_encode($getTickets);
     }
 
     public function ansTicket() {
-        //$getTickets = $this->db->table('tickets')->orderBy('status', 'DESC')->get();
-        //return json_encode($getTickets);
+
     }
 
     public function sendTicket(Request $request) {

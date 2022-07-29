@@ -13,4 +13,7 @@
     </div>
     <button type="button" id="sendTicket" class="btn btn-primary">Send ticket</button>
 </form>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/tickets.js"></script>
 @stop

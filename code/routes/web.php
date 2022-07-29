@@ -16,3 +16,4 @@ use App\Http\Controllers\ffTickets;
 */
 
 Route::get('/', [ffTickets::class, 'indexMain']);
+Route::get('/view', [ffTickets::class, 'listTickets']);
