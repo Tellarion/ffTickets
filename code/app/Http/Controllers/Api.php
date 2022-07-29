@@ -19,7 +19,7 @@ class Api extends BaseController
 
     public function __construct() {
         $this->middleware(function ($request, $next) {
-            $this->db = DB::connection('mysql');
+            $this->db = DB::connection('mysqldb');
             return $next($request);
         });
     }
@@ -35,7 +35,6 @@ class Api extends BaseController
     }
 
     public function sendTicket(Request $request) {
-        //$getTickets = $this->db->table('tickets')->orderBy('status', 'DESC')->get();
 
         $validated = $request->validate([
             'name' => 'required|alpha|min:3|max:30',
@@ -47,7 +46,7 @@ class Api extends BaseController
         $email = $request->input('email');
         $message = strip_tags($request->input('message'));
 
-        $this->db->table('tickets')->insert(['name' => $name, 'email' => $email, 'status' => 0, 'message' => $message, 'timeleft' => 0]);
+        $this->db->table('tickets')->insert(['name' => $name, 'email' => $email, 'status' => 'Active', 'message' => $message, 'timeleft_at' => 0]);
 
         $array = array(
             "status" => true,
