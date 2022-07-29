@@ -1,4 +1,7 @@
 $(document).ready(function() {
+
+    var obj = {}
+
     let genTable = ``
     
     $.ajax({
@@ -16,13 +19,19 @@ $(document).ready(function() {
             $('#dmodal').modal('show')
         },
         success: function(data) {
-            console.log(data)
-            for(let i = 0; i < data.length; i++) {
-                genTable += `<tr data-click="${data[i].id}">`
-                genTable += `<td>${data[i].id}</td><td>${data[i].name}</td><td>${data[i].email}</td><td>${data[i].status}</td><td>${data[i].message}</td><td>${data[i].comment}</td><td>${data[i].timeleft_at}</td><td>${data[i].created_at}</td><td>${data[i].updated_at}</td>`
+            obj = data
+            for(let i = 0; i < obj.length; i++) {
+                let status = (obj[i].status == 'Active') ? `<span style="color: yellow;">${obj[i].status}</span>` : `<span style="color: green;">${status}</span>`
+                let createdAt = new Date(obj[i].created_at).toLocaleString()
+                genTable += `<tr data-click="${obj[i].id}">`
+                genTable += `<td>${obj[i].id}</td><td>${obj[i].name}</td><td>${obj[i].email}</td><td>${status}</td><td>${obj[i].message}</td><td>${obj[i].comment??"-"}</td><td>${obj[i].timeleft_at == 0 ? "-" : obj[i].timeleft_at}</td><td>${createdAt}</td><td>${obj[i].updated_at == null ? "-" : obj[i].updated_at}</td>`
                 genTable += `<tr>`
             }
             $('table tbody').html(genTable)
+            $('[data-click]').on('click', function() {
+                let getId = $(this).data('click')
+                alert(getId)
+            })
         }
     })
 })
