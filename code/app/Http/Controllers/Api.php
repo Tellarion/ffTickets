@@ -28,8 +28,25 @@ class Api extends BaseController
         return json_encode($getTickets);
     }
 
-    public function ansTicket() {
+    public function ansTicket($id, Request $request) {
+        $array = array(
+            "status" => true,
+            "data" => $id
+        );
 
+        $comment = $request->input('comment');
+
+        $ticket = Tickets::where('id', $id)->get();
+
+        $strtotime = strtotime($ticket[0]['created_at']);
+
+        $strtotime = time() - $strtotime;
+
+        Tickets::where('id', $id)->update(['status' => 'Resolved', 'timeleft_at' => $strtotime, 'comment' => $comment]);
+
+        mail($ticket[0]['email'], 'Getting a response', $comment);
+
+        return json_encode($array);
     }
 
     public function sendTicket(Request $request) {
