@@ -14,13 +14,13 @@ class Tickets extends Migration
     public function up()
     {
         Schema::create('tickets', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('name', 32);
             $table->string('email', 32);
             $table->enum('status', ['Active', 'Resolved']);
             $table->string('message')->nullable();
             $table->string('comment')->nullable();
-            $table->integer('timeleft_at', 0);
+            $table->integer('timeleft_at')->default('0');;
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
             

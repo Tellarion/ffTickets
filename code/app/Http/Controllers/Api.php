@@ -7,6 +7,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
+use App\Models\Tickets;
 
 use DB;
 
@@ -19,7 +20,6 @@ class Api extends BaseController
 
     public function __construct() {
         $this->middleware(function ($request, $next) {
-            $this->db = DB::connection('mysqldb');
             return $next($request);
         });
     }
@@ -46,7 +46,7 @@ class Api extends BaseController
         $email = $request->input('email');
         $message = strip_tags($request->input('message'));
 
-        $this->db->table('tickets')->insert(['name' => $name, 'email' => $email, 'status' => 'Active', 'message' => $message, 'timeleft_at' => 0]);
+        Tickets::insert(['name' => $name, 'email' => $email, 'status' => 'Active', 'message' => $message, 'timeleft_at' => 0]);
 
         $array = array(
             "status" => true,
